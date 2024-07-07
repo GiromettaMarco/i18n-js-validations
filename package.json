@@ -2,24 +2,42 @@
   "name": "@gmarco/js-validations",
   "version": "1.0.0",
   "description": "Low-level JavaScript value validator with a \"Laravel like\" syntax",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  "keywords": [
+    "validation"
+  ],
+  "homepage": "https://github.com/GiromettaMarco/js-validations#readme",
+  "bugs": {
+    "url": "https://github.com/GiromettaMarco/js-validations/issues"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GiromettaMarco/js-validations.git"
   },
-  "keywords": [
-    "validation"
-  ],
   "author": "Girometta Marco",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/GiromettaMarco/js-validations/issues"
+  "main": "dist/js-validations.js",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    "types": "./dist/js-validations.d.ts",
+    "default": "./dist/js-validations.js"
   },
-  "homepage": "https://github.com/GiromettaMarco/js-validations#readme",
+  "module": "./dist/js-validations.esm.js",
+  "types": "./dist/js-validations.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest --typecheck"
+  },
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.7"
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup-plugin-typescript-paths": "^1.5.0",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3",
+    "vitest": "^1.6.0"
   }
 }
