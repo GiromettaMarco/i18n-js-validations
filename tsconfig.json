@@ -1,9 +1,18 @@
 {
-    "extends": "@tsconfig/recommended/tsconfig.json",
-    "compilerOptions": {
-        "paths": {
-            "@/*": ["src/*"]
-        }
-    },
-    "exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Bundler",
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "types": ["vite/client"]
+  },
+  "exclude": ["node_modules", "tests"]
 }
