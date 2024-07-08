@@ -30,14 +30,22 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest --typecheck"
+    "test": "vitest --typecheck",
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
+    "prettier": "3.3.2",
     "rollup-plugin-typescript-paths": "^1.5.0",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
     "vitest": "^1.6.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "semi": false
   }
 }
