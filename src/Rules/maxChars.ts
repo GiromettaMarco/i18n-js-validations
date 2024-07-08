@@ -5,7 +5,7 @@ import { ValidationRule } from "./validationRule"
 class MaxChars extends ValidationRule {
   name = 'max_chars'
 
-  callback(value: string, parameters: { max: number }, label?: string) {
+  validate(value: string, parameters: { max: number }, label?: string) {
     if (value.length <= parameters.max) {
       return new RuleReply(this.name, true)
     }
@@ -29,6 +29,13 @@ class MaxChars extends ValidationRule {
       })
     )
   }
+
+  callback = (value: string, parameters?: string[], label?: string) => {
+    if (parameters === undefined || parameters[0] === undefined) {
+      return new RuleReply(this.name, true, new Message("Maximum value must be provided"))
+    }
+    return this.validate(value, { max: parseInt(parameters[0]) }, label)
+  }
 }
 
-export const maxChars = new MaxChars()
+export const max_chars = new MaxChars()

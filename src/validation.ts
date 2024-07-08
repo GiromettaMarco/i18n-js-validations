@@ -1,34 +1,75 @@
-import { Message } from "./Replies/message"
-import { RuleReply } from "./Replies/ruleReply"
-import { ValidationReply } from "./Replies/validationReply"
-import { maxChars } from "./Rules/maxChars"
-import { minChars } from "./Rules/minChars"
-import { required } from "./Rules/required"
+import { Message } from './Replies/message'
+import { RuleReply } from './Replies/ruleReply'
+import { ValidationReply } from './Replies/validationReply'
+import { max_chars } from './Rules/maxChars'
+import { min_chars } from './Rules/minChars'
+import { required } from './Rules/required'
+import type { ValidationRule } from './Rules/validationRule'
+
+interface Options {
+  customRules?: ValidationRule[]
+}
 
 export class Validation {
-  // Collect validation rules
-  rules = {
+  /**
+   * Validation rules available to this Validation object.
+   */
+  rules: {
+    [key: string]: ValidationRule
+  } = {
     required,
-    minChars,
-    maxChars
+    min_chars,
+    max_chars,
   }
 
-  // Collect validation replies
+  /**
+   * Make a new validation object.
+   *
+   * @param options
+   */
+  constructor(options?: Options) {
+    if (options?.customRules) {
+      for (const customRule of options.customRules) {
+        this.addRule(customRule)
+      }
+    }
+  }
+
+  /**
+   * Add support for a custom validation rule.
+   *
+   * @param rule
+   */
+  addRule(rule: ValidationRule) {
+    this.rules[rule.name] = rule
+  }
+
+  /**
+   * Store replies from the latest validation.
+   */
   reply = new ValidationReply()
 
-  // Check for validation errors
+  /**
+   * Check for validation errors.
+   *
+   * @returns
+   */
   hasErrors(): boolean {
     return this.reply.hasErrors
   }
 
-  // Get error messages
+  /**
+   * Get error messages
+   *
+   * @returns
+   */
   getErrorMessages(): Message[] {
     return this.reply.errorMessages
   }
 
   /**
-   * Test a value against a validation rule
-   * 
+   * Test a value against a validation rule.
+   *
    * @param value The value to test
    * @param rule The validation rule to apply
    * @param parameters Parameters used by some rules (like min and max)
@@ -36,30 +77,20 @@ export class Validation {
    * @returns Return a RuleReply with a message key in case of error
    */
   validateSingle(value: string, rule: string, parameters?: string[], label?: string): RuleReply {
-    switch (rule) {
-      case this.rules.required.name:
-        return this.rules.required.callback(value, label)
-
-      case this.rules.minChars.name:
-        if (typeof parameters === 'undefined' || typeof parameters[0] === 'undefined') {
-          return new RuleReply(rule, true, new Message("Minimum value must be provided"))
-        }
-        return this.rules.minChars.callback(value, { min: parseInt(parameters[0]) }, label)
-
-      case this.rules.maxChars.name:
-        if (typeof parameters === 'undefined' || typeof parameters[0] === 'undefined') {
-          return new RuleReply(rule, true, new Message("Maximum value must be provided"))
-        }
-        return this.rules.maxChars.callback(value, { max: parseInt(parameters[0]) }, label)
-
-      default:
-        return new RuleReply(rule, true, new Message("Validation rule doesn't exist"))
+    if (!this.rules[rule]) {
+      return new RuleReply(rule, true, new Message("Validation rule doesn't exist"))
     }
+
+    if (this.rules[rule].callback) {
+      return this.rules[rule].callback(value, parameters, label)
+    }
+
+    return this.rules[rule].validate(value, label)
   }
 
   /**
-   * Test a value against a set of validation rule
-   * 
+   * Test a value against a set of validation rules.
+   *
    * @param value The value to test
    * @param rules An array of validation rule names
    * @param label Set a custom label for error messages
@@ -69,7 +100,7 @@ export class Validation {
     // Clear replies
     this.reply.clear()
 
-    for (let rule of rules) {
+    for (const rule of rules) {
       // Parse the validation rule string
       const ruleParams = rule.split(':')
 

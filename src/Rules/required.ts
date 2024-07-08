@@ -5,7 +5,7 @@ import { ValidationRule } from "./validationRule"
 class Required extends ValidationRule {
   name = 'required'
 
-  callback(value: string, label? : string) {
+  validate(value: string, label? : string) {
     if (value.trim().length > 0) {
       return new RuleReply(this.name, true)
     }
@@ -18,7 +18,7 @@ class Required extends ValidationRule {
           label: label
         })
       )
-    } 
+    }
 
     return new RuleReply(
       this.name,
