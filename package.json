@@ -1,7 +1,7 @@
 {
   "name": "@gmarco/js-validations",
   "version": "1.0.0",
-  "description": "Low-level JavaScript value validator with a \"Laravel like\" syntax",
+  "description": "Low-level JavaScript value validator predisposed for i18n",
   "keywords": [
     "validation"
   ],
