@@ -1,4 +1,4 @@
-import { Message } from '../Replies/message';
+import { Message } from '../Replies/message'
 
 export class RuleReply {
   rule: string

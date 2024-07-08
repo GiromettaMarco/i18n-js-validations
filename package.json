@@ -31,6 +31,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest --typecheck",
+    "prettier": "prettier . --write",
     "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
   },
   "devDependencies": {
