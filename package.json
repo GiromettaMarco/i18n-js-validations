@@ -32,10 +32,13 @@
     "preview": "vite preview",
     "test": "vitest --typecheck",
     "prettier": "prettier . --write",
-    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
     "prettier": "3.3.2",
     "rollup-plugin-typescript-paths": "^1.5.0",
     "tslib": "^2.6.3",
@@ -48,5 +51,8 @@
     "singleQuote": true,
     "tabWidth": 2,
     "semi": false
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
