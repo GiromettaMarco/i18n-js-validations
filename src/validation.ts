@@ -36,6 +36,11 @@ export class Validation {
   }
 
   /**
+   * Store replies from the latest validation.
+   */
+  reply = new ValidationReply()
+
+  /**
    * Add support for a custom validation rule.
    *
    * @param rule
@@ -43,11 +48,6 @@ export class Validation {
   addRule(rule: ValidationRule) {
     this.rules[rule.name] = rule
   }
-
-  /**
-   * Store replies from the latest validation.
-   */
-  reply = new ValidationReply()
 
   /**
    * Check for validation errors.
@@ -59,12 +59,21 @@ export class Validation {
   }
 
   /**
-   * Get error messages
+   * Get error messages.
    *
    * @returns
    */
   getErrorMessages(): Message[] {
     return this.reply.errorMessages
+  }
+
+  /**
+   * Get all replies.
+   *
+   * @returns
+   */
+  getReplies(): RuleReply[] {
+    return this.reply.replies
   }
 
   /**
