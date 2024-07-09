@@ -6,7 +6,12 @@ export abstract class ValidationRule {
 
   abstract validate(value: string, ...args: any): RuleReply
 
-  callback?: (value: string, parameters?: string[], label?: string) => RuleReply
+  callback?: (
+    value: string,
+    parameters?: string[],
+    label?: string,
+    interpolation?: string,
+  ) => RuleReply
 
   replySuccess(message?: string, parameters?: { [key: string]: string }) {
     if (message === undefined) {

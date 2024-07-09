@@ -3,12 +3,16 @@ import { ValidationRule } from './validationRule'
 class Required extends ValidationRule {
   name = 'required'
 
-  validate(value: string, label?: string) {
+  validate(value: string, label?: string, interpolation?: string) {
     if (value.trim().length > 0) {
       return this.replySuccess()
     }
 
     if (label) {
+      if (interpolation === '{}') {
+        return this.replyFail('The field {label} is required', { label: label })
+      }
+
       return this.replyFail('The field :label is required', { label: label })
     }
 

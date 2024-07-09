@@ -8,6 +8,7 @@ import type { ValidationRule } from './Rules/validationRule'
 
 interface Options {
   customRules?: ValidationRule[]
+  interpolation?: string
 }
 
 export class Validation {
@@ -23,6 +24,15 @@ export class Validation {
   }
 
   /**
+   * Interpolation key syntax for reply messages.
+   *
+   * E.g.:
+   * ':' for 'The field :label is required', and
+   * '{}' for 'The field {label} is required'
+   */
+  interpolation: string = ':'
+
+  /**
    * Make a new validation object.
    *
    * @param options
@@ -32,6 +42,10 @@ export class Validation {
       for (const customRule of options.customRules) {
         this.addRule(customRule)
       }
+    }
+
+    if (options?.interpolation) {
+      this.interpolation = options.interpolation
     }
   }
 
@@ -91,10 +105,10 @@ export class Validation {
     }
 
     if (this.rules[rule].callback) {
-      return this.rules[rule].callback(value, parameters, label)
+      return this.rules[rule].callback(value, parameters, label, this.interpolation)
     }
 
-    return this.rules[rule].validate(value, label)
+    return this.rules[rule].validate(value, label, this.interpolation)
   }
 
   /**
