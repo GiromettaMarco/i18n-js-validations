@@ -5,6 +5,7 @@ import { alpha } from './rules/alpha'
 import { alpha_dash } from './rules/alphaDash'
 import { alpha_num } from './rules/alphaNum'
 import { hex_color } from './rules/hexColor'
+import { integer } from './rules/integer'
 import { max_chars } from './rules/maxChars'
 import { min_chars } from './rules/minChars'
 import { required } from './rules/required'
@@ -26,6 +27,7 @@ export class Validation {
     alpha_dash,
     alpha_num,
     hex_color,
+    integer,
     required,
     min_chars,
     max_chars,
