@@ -2,6 +2,7 @@ import { Message } from './replies/message'
 import { RuleReply } from './replies/ruleReply'
 import { ValidationReply } from './replies/validationReply'
 import { alpha } from './rules/alpha'
+import { alpha_dash } from './rules/alphaDash'
 import { max_chars } from './rules/maxChars'
 import { min_chars } from './rules/minChars'
 import { required } from './rules/required'
@@ -20,6 +21,7 @@ export class Validation {
     [key: string]: ValidationRule
   } = {
     alpha,
+    alpha_dash,
     required,
     min_chars,
     max_chars,
