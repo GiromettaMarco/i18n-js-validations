@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { RuleReply } from '../src/Replies/ruleReply.ts'
-import { ValidationRule } from '../src/Rules/validationRule.ts'
+import { RuleReply } from '../src/replies/ruleReply.ts'
+import { ValidationRule } from '../src/rules/validationRule.ts'
 import { Validation } from '../src/validation.ts'
 
 class FirstA extends ValidationRule {

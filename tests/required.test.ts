@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { required } from '../src/Rules/required.ts'
+import { required } from '../src/rules/required.ts'
 
 test('required on an empty string', () => {
   const ruleReply = required.validate('')

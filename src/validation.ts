@@ -1,10 +1,10 @@
-import { Message } from './Replies/message'
-import { RuleReply } from './Replies/ruleReply'
-import { ValidationReply } from './Replies/validationReply'
-import { max_chars } from './Rules/maxChars'
-import { min_chars } from './Rules/minChars'
-import { required } from './Rules/required'
-import type { ValidationRule } from './Rules/validationRule'
+import { Message } from './replies/message'
+import { RuleReply } from './replies/ruleReply'
+import { ValidationReply } from './replies/validationReply'
+import { max_chars } from './rules/maxChars'
+import { min_chars } from './rules/minChars'
+import { required } from './rules/required'
+import type { ValidationRule } from './rules/validationRule'
 
 interface Options {
   customRules?: ValidationRule[]

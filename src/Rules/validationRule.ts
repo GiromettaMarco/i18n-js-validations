@@ -1,5 +1,5 @@
-import { Message } from 'src/Replies/message'
-import { RuleReply } from '../Replies/ruleReply'
+import { Message } from '../replies/message'
+import { RuleReply } from '../replies/ruleReply'
 
 export abstract class ValidationRule {
   abstract name: string
