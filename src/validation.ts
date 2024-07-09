@@ -1,6 +1,7 @@
 import { Message } from './replies/message'
 import { RuleReply } from './replies/ruleReply'
 import { ValidationReply } from './replies/validationReply'
+import { alpha } from './rules/alpha'
 import { max_chars } from './rules/maxChars'
 import { min_chars } from './rules/minChars'
 import { required } from './rules/required'
@@ -18,6 +19,7 @@ export class Validation {
   rules: {
     [key: string]: ValidationRule
   } = {
+    alpha,
     required,
     min_chars,
     max_chars,
@@ -99,7 +101,7 @@ export class Validation {
    * @param label Set a custom label for error messages
    * @returns Return a RuleReply with a message key in case of error
    */
-  validateSingle(value: string, rule: string, parameters?: string[], label?: string): RuleReply {
+  validateSingle(value: string, rule: string, parameters: string[], label?: string): RuleReply {
     if (!this.rules[rule]) {
       return new RuleReply(rule, true, new Message("Validation rule doesn't exist"))
     }

@@ -8,7 +8,7 @@ export abstract class ValidationRule {
 
   callback?: (
     value: string,
-    parameters?: string[],
+    parameters: string[],
     label?: string,
     interpolation?: string,
   ) => RuleReply

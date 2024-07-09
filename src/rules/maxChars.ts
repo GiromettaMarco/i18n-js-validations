@@ -28,10 +28,11 @@ class MaxChars extends ValidationRule {
     return this.replyFail(text, { value: parameters.max.toString() })
   }
 
-  callback = (value: string, parameters?: string[], label?: string, interpolation?: string) => {
-    if (parameters === undefined || parameters[0] === undefined) {
+  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+    if (parameters[0] === undefined) {
       return this.replySuccess('Maximum value must be provided')
     }
+
     return this.validate(value, { max: parseInt(parameters[0]) }, label, interpolation)
   }
 }

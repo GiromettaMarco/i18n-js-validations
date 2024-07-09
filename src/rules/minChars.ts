@@ -28,10 +28,11 @@ class MinChars extends ValidationRule {
     return this.replyFail(text, { value: parameters.min.toString() })
   }
 
-  callback = (value: string, parameters?: string[], label?: string, interpolation?: string) => {
-    if (parameters === undefined || parameters[0] === undefined) {
+  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+    if (parameters[0] === undefined) {
       return this.replySuccess('Minimum value must be provided')
     }
+
     return this.validate(value, { min: parseInt(parameters[0]) }, label, interpolation)
   }
 }
