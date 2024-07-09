@@ -1,7 +1,7 @@
 import { ValidationRule } from './validationRule'
 
 /**
- * Validate that an attribute contains only alpha-numeric characters, dashes, and underscores.
+ * Validate that an attribute contains only alpha-numeric characters, dashes and underscores.
  * If the 'ascii' option is passed, validate that an attribute contains only ascii alpha-numeric characters,
  * dashes, and underscores.
  */
@@ -18,13 +18,15 @@ class AlphaDash extends ValidationRule {
     if (label) {
       const text =
         interpolation === '{}'
-          ? 'The field {label} can contain only alpha-numeric and dashes characters'
-          : 'The field :label can contain only alpha-numeric and dashes characters'
+          ? 'The field {label} can contain only alpha-numeric characters, dashes and underscores'
+          : 'The field :label can contain only alpha-numeric characters, dashes and underscores'
 
       return this.replyFail(text, { label: label })
     }
 
-    return this.replyFail('This field can contain only alpha-numeric and dashes characters')
+    return this.replyFail(
+      'This field can contain only alpha-numeric characters, dashes and underscores',
+    )
   }
 
   callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
