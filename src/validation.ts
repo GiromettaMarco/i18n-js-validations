@@ -3,6 +3,7 @@ import { RuleReply } from './replies/ruleReply'
 import { ValidationReply } from './replies/validationReply'
 import { alpha } from './rules/alpha'
 import { alpha_dash } from './rules/alphaDash'
+import { alpha_num } from './rules/alphaNum'
 import { max_chars } from './rules/maxChars'
 import { min_chars } from './rules/minChars'
 import { required } from './rules/required'
@@ -22,6 +23,7 @@ export class Validation {
   } = {
     alpha,
     alpha_dash,
+    alpha_num,
     required,
     min_chars,
     max_chars,
