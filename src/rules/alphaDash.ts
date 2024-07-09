@@ -1,8 +1,8 @@
 import { ValidationRule } from './validationRule'
 
 /**
- * Validate that an attribute contains only alpha-numeric characters, dashes and underscores.
- * If the 'ascii' option is passed, validate that an attribute contains only ascii alpha-numeric characters,
+ * Validate that a value contains only alpha-numeric characters, dashes and underscores.
+ * If the 'ascii' option is passed, validate that a value contains only ascii alpha-numeric characters,
  * dashes, and underscores.
  */
 class AlphaDash extends ValidationRule {

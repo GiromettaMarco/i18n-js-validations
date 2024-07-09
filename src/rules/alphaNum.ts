@@ -1,8 +1,8 @@
 import { ValidationRule } from './validationRule'
 
 /**
- * Validate that an attribute contains only alpha-numeric characters.
- * If the 'ascii' option is passed, validate that an attribute contains only ascii alpha-numeric characters.
+ * Validate that a value contains only alpha-numeric characters.
+ * If the 'ascii' option is passed, validate that a value contains only ascii alpha-numeric characters.
  */
 class AlphaNum extends ValidationRule {
   name = 'alpha_num'
