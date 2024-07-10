@@ -8,6 +8,7 @@ import { hex_color } from './rules/hexColor'
 import { integer } from './rules/integer'
 import { max } from './rules/max'
 import { max_chars } from './rules/maxChars'
+import { min } from './rules/min'
 import { min_chars } from './rules/minChars'
 import { required } from './rules/required'
 import type { ValidationRule } from './rules/validationRule'
@@ -32,6 +33,7 @@ export class Validation {
     required,
     max,
     max_chars,
+    min,
     min_chars,
   }
 
