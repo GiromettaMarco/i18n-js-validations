@@ -14,8 +14,8 @@ class Max extends ValidationRule {
     if (label) {
       const text =
         interpolation === '{}'
-          ? 'The field {label} cannot be more than {value} characters long'
-          : 'The field :label cannot be more than :value characters long'
+          ? 'The field {label} cannot be greater than {value}'
+          : 'The field :label cannot be greater than :value'
 
       return this.replyFail(text, {
         label: label,
@@ -25,8 +25,8 @@ class Max extends ValidationRule {
 
     const text =
       interpolation === '{}'
-        ? 'This field cannot be more than {value} characters long'
-        : 'This field cannot be more than :value characters long'
+        ? 'This field cannot be greater than {value}'
+        : 'This field cannot be greater than :value'
 
     return this.replyFail(text, { value: parameters.max.toString() })
   }
