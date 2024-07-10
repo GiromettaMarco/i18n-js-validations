@@ -10,6 +10,7 @@ import { max } from './rules/max'
 import { max_chars } from './rules/maxChars'
 import { min } from './rules/min'
 import { min_chars } from './rules/minChars'
+import { numeric } from './rules/numeric'
 import { required } from './rules/required'
 import type { ValidationRule } from './rules/validationRule'
 
@@ -35,6 +36,7 @@ export class Validation {
     max_chars,
     min,
     min_chars,
+    numeric,
   }
 
   /**
