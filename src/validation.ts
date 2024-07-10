@@ -4,12 +4,14 @@ import { ValidationReply } from './replies/validationReply'
 import { alpha } from './rules/alpha'
 import { alpha_dash } from './rules/alphaDash'
 import { alpha_num } from './rules/alphaNum'
+import { equal } from './rules/equal'
 import { hex_color } from './rules/hexColor'
 import { integer } from './rules/integer'
 import { max } from './rules/max'
 import { max_chars } from './rules/maxChars'
 import { min } from './rules/min'
 import { min_chars } from './rules/minChars'
+import { not_equal } from './rules/notEqual'
 import { numeric } from './rules/numeric'
 import { required } from './rules/required'
 import type { ValidationRule } from './rules/validationRule'
@@ -29,6 +31,7 @@ export class Validation {
     alpha,
     alpha_dash,
     alpha_num,
+    equal,
     hex_color,
     integer,
     required,
@@ -36,6 +39,7 @@ export class Validation {
     max_chars,
     min,
     min_chars,
+    not_equal,
     numeric,
   }
 
