@@ -12,7 +12,9 @@ import { max_chars } from './rules/maxChars'
 import { min } from './rules/min'
 import { min_chars } from './rules/minChars'
 import { not_equal } from './rules/notEqual'
+import { not_regex } from './rules/notRegex'
 import { numeric } from './rules/numeric'
+import { regex } from './rules/regex'
 import { required } from './rules/required'
 import type { ValidationRule } from './rules/validationRule'
 
@@ -34,12 +36,14 @@ export class Validation {
     equal,
     hex_color,
     integer,
+    regex,
     required,
     max,
     max_chars,
     min,
     min_chars,
     not_equal,
+    not_regex,
     numeric,
   }
 
