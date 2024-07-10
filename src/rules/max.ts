@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate the size of a value is less than or equal to a maximum value.
+ *
+ * @syntax max:value
  */
 class Max extends ValidationRule {
   name = 'max'

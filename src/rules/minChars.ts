@@ -1,5 +1,10 @@
 import { ValidationRule } from './validationRule'
 
+/**
+ * Validate that a value has a minimum number of characters.
+ *
+ * @syntax min_chars:value
+ */
 class MinChars extends ValidationRule {
   name = 'min_chars'
 

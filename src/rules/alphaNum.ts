@@ -3,6 +3,8 @@ import { ValidationRule } from './validationRule'
 /**
  * Validate that a value contains only alpha-numeric characters.
  * If the 'ascii' option is passed, validate that a value contains only ascii alpha-numeric characters.
+ *
+ * @syntax alpha_num | alpha_num:ascii
  */
 class AlphaNum extends ValidationRule {
   name = 'alpha_num'

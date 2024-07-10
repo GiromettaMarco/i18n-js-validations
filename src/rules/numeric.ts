@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate that a value is numeric.
+ *
+ * @syntax numeric
  */
 class Numberic extends ValidationRule {
   name = 'numeric'

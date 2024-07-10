@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate that a value is an integer.
+ *
+ * @syntax integer
  */
 class Integer extends ValidationRule {
   name = 'integer'

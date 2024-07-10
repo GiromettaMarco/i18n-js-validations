@@ -1,9 +1,9 @@
 import { ValidationRule } from './validationRule'
 
 /**
- * Validate that a field does not pass a regular expression check.
+ * Validate that a value does not pass a regular expression check.
  *
- * regex:pattern,flags
+ * @syntax not_regex:pattern,flags
  */
 class NotRegex extends ValidationRule {
   name = 'not_regex'

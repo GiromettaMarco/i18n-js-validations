@@ -1,5 +1,10 @@
 import { ValidationRule } from './validationRule'
 
+/**
+ * Validate that a value is not empty.
+ *
+ * @syntax required
+ */
 class Required extends ValidationRule {
   name = 'required'
 

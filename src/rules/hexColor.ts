@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate that a value is a valid HEX color.
+ *
+ * @syntax hex_color
  */
 class HexColor extends ValidationRule {
   name = 'hex_color'

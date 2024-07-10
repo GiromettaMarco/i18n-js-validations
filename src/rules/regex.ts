@@ -1,9 +1,9 @@
 import { ValidationRule } from './validationRule'
 
 /**
- * Validate that a field passes a regular expression check.
+ * Validate that a value passes a regular expression check.
  *
- * regex:pattern,flags
+ * @syntax regex:pattern,flags
  */
 class Regex extends ValidationRule {
   name = 'regex'

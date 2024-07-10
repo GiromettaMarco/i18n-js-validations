@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate the size of a value is greater than or equal to a minimum value.
+ *
+ * @syntax min:value
  */
 class Min extends ValidationRule {
   name = 'min'

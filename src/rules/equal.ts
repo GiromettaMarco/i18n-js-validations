@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate a value is contained within a list of values.
+ *
+ * @syntax equal:match1,match2,...
  */
 class Equal extends ValidationRule {
   name = 'equal'

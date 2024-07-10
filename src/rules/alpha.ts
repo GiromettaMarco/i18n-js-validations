@@ -1,8 +1,10 @@
 import { ValidationRule } from './validationRule'
 
 /**
- * Validate that an attribute contains only alphabetic characters.
- * If the 'ascii' option is passed, validate that an attribute contains only ascii alphabetic characters.
+ * Validate that a value contains only alphabetic characters.
+ * If the 'ascii' option is passed, validate that a value contains only ascii alphabetic characters.
+ *
+ * @syntax alpha | alpha:ascii
  */
 class Alpha extends ValidationRule {
   name = 'alpha'

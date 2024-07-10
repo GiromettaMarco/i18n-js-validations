@@ -2,6 +2,8 @@ import { ValidationRule } from './validationRule'
 
 /**
  * Validate a value is not contained within a list of values.
+ *
+ * @syntax not_equal:match1,match2,...
  */
 class NotEqual extends ValidationRule {
   name = 'not_equal'

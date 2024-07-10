@@ -1,5 +1,10 @@
 import { ValidationRule } from './validationRule'
 
+/**
+ * Validate that a value has a maximum number of characters.
+ *
+ * @syntax max_chars:value
+ */
 class MaxChars extends ValidationRule {
   name = 'max_chars'
 
