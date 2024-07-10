@@ -4,25 +4,29 @@ import { Validation } from '../src/validation.ts'
 const $v = new Validation()
 
 test('integer on "a"', () => {
-  $v.validate('a', ['integer'])
-
-  expect($v.hasErrors()).toBe(true)
+  expect($v.validate('a', ['integer'])).toBe(false)
 })
 
 test('integer on "5"', () => {
-  $v.validate('5', ['integer'])
-
-  expect($v.hasErrors()).toBe(false)
+  expect($v.validate('5', ['integer'])).toBe(true)
 })
 
 test('integer on "5.1"', () => {
-  $v.validate('5.1', ['integer'])
-
-  expect($v.hasErrors()).toBe(true)
+  expect($v.validate('5.1', ['integer'])).toBe(false)
 })
 
 test('integer on "5.0"', () => {
-  $v.validate('5.0', ['integer'])
+  expect($v.validate('5.0', ['integer'])).toBe(true)
+})
 
-  expect($v.hasErrors()).toBe(false)
+test('integer on ""', () => {
+  expect($v.validate('', ['integer'])).toBe(false)
+})
+
+test('integer on "5abc"', () => {
+  expect($v.validate('5abc', ['integer'])).toBe(false)
+})
+
+test('integer on " 5 "', () => {
+  expect($v.validate('5 abc', ['integer'])).toBe(false)
 })

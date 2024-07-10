@@ -7,7 +7,9 @@ class Integer extends ValidationRule {
   name = 'integer'
 
   validate(value: string, label?: string, interpolation?: string) {
-    if (Number.isInteger(Number(value))) {
+    const regex = /^[0-9.]+$/
+
+    if (regex.test(value) && Number.isInteger(Number(value))) {
       return this.replySuccess()
     }
 
