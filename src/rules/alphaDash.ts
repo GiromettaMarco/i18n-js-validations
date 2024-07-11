@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -10,31 +11,39 @@ import { ValidationRule } from './validationRule'
 class AlphaDash extends ValidationRule {
   name = 'alpha_dash'
 
+  strings = {
+    fail: {
+      withLabel: {
+        default:
+          'The field :label can contain only alpha-numeric characters, dashes and underscores',
+        '{}': 'The field {label} can contain only alpha-numeric characters, dashes and underscores',
+      },
+      withoutLabel: {
+        default: 'This field can contain only alpha-numeric characters, dashes and underscores',
+      },
+    },
+  }
+
   validate(value: string, parameters: { ascii: boolean }, label?: string, interpolation?: string) {
     const regex = parameters.ascii ? /^[a-zA-Z0-9_-]+$/u : /^[\p{L}\p{M}\p{N}_-]+$/u
 
     if (regex.test(value)) {
-      return this.replySuccess()
+      return this.replySuccess(label, interpolation)
     }
 
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? 'The field {label} can contain only alpha-numeric characters, dashes and underscores'
-          : 'The field :label can contain only alpha-numeric characters, dashes and underscores'
-
-      return this.replyFail(text, { label: label })
-    }
-
-    return this.replyFail(
-      'This field can contain only alpha-numeric characters, dashes and underscores',
-    )
+    return this.replyFail(label, interpolation)
   }
 
-  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+  callback(value: Value, parameters: string[], label?: string, interpolation?: string) {
+    const parsedValue = typeof value === 'number' ? value.toString() : value
+
+    if (typeof parsedValue !== 'string') {
+      return this.replyFail(label, interpolation)
+    }
+
     const ascii = Boolean(parameters[0] === 'ascii')
 
-    return this.validate(value, { ascii: ascii }, label, interpolation)
+    return this.validate(parsedValue, { ascii: ascii }, label, interpolation)
   }
 }
 

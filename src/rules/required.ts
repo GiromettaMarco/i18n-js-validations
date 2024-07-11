@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,20 +9,40 @@ import { ValidationRule } from './validationRule'
 class Required extends ValidationRule {
   name = 'required'
 
-  validate(value: string, label?: string, interpolation?: string) {
-    if (value.trim().length > 0) {
-      return this.replySuccess()
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label is required',
+        '{}': 'The field {label} is required',
+      },
+      withoutLabel: {
+        default: 'This field is required',
+      },
+    },
+  }
+
+  validate(value: Value, label?: string, interpolation?: string) {
+    if (value === undefined || value === null) {
+      return this.replyFail(label, interpolation)
     }
 
-    if (label) {
-      if (interpolation === '{}') {
-        return this.replyFail('The field {label} is required', { label: label })
+    if (typeof value === 'boolean') {
+      return this.replySuccess(label, interpolation)
+    }
+
+    if (typeof value === 'number') {
+      if (isNaN(value)) {
+        return this.replyFail(label, interpolation)
       }
 
-      return this.replyFail('The field :label is required', { label: label })
+      return this.replySuccess(label, interpolation)
     }
 
-    return this.replyFail('This field is required')
+    if (value.trim().length > 0) {
+      return this.replySuccess(label, interpolation)
+    }
+
+    return this.replyFail(label, interpolation)
   }
 }
 

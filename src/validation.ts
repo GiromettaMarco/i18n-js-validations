@@ -18,7 +18,9 @@ import { regex } from './rules/regex'
 import { required } from './rules/required'
 import type { ValidationRule } from './rules/validationRule'
 
-interface Options {
+export type Value = string | number | boolean | null | undefined
+
+export interface Options {
   customRules?: ValidationRule[]
   interpolation?: string
 }
@@ -123,7 +125,7 @@ export class Validation {
    * @param label Set a custom label for error messages
    * @returns Return a RuleReply with a message key in case of error
    */
-  validateSingle(value: string, rule: string, parameters: string[], label?: string): RuleReply {
+  validateSingle(value: Value, rule: string, parameters: string[], label?: string): RuleReply {
     if (!this.rules[rule]) {
       return new RuleReply(rule, true, new Message("Validation rule doesn't exist"))
     }
@@ -143,7 +145,7 @@ export class Validation {
    * @param label Set a custom label for error messages
    * @returns Return TRUE if no validation errors are detected and FALSE otherwise
    */
-  validate(value: string, rules: string[], label?: string): boolean {
+  validate(value: Value, rules: string[], label?: string): boolean {
     // Clear replies
     this.reply.clear()
 

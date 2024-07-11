@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,23 +9,32 @@ import { ValidationRule } from './validationRule'
 class Integer extends ValidationRule {
   name = 'integer'
 
-  validate(value: string, label?: string, interpolation?: string) {
-    const regex = /^[0-9.]+$/
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label must be an integer number',
+        '{}': 'The field {label} must be an integer number',
+      },
+      withoutLabel: {
+        default: 'This field must be an integer number',
+      },
+    },
+  }
 
-    if (regex.test(value) && Number.isInteger(Number(value))) {
-      return this.replySuccess()
+  validate(value: Value, label?: string, interpolation?: string) {
+    if (typeof value === 'number' && Number.isInteger(value)) {
+      return this.replySuccess(label, interpolation)
     }
 
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? 'The field {label} must be an integer number'
-          : 'The field :label must be an integer number'
+    if (typeof value === 'string') {
+      const regex = /^[0-9.]+$/
 
-      return this.replyFail(text, { label: label })
+      if (regex.test(value) && Number.isInteger(Number(value))) {
+        return this.replySuccess(label, interpolation)
+      }
     }
 
-    return this.replyFail('This field must be an integer number')
+    return this.replyFail(label, interpolation)
   }
 }
 

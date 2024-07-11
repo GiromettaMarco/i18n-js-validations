@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,6 +9,19 @@ import { ValidationRule } from './validationRule'
 class NotEqual extends ValidationRule {
   name = 'not_equal'
 
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label cannot be equal to :value',
+        '{}': 'The field {label} cannot be equal to {value}',
+      },
+      withoutLabel: {
+        default: 'This field cannot be equal to :value',
+        '{}': 'This field cannot be equal to {value}',
+      },
+    },
+  }
+
   validate(
     value: string,
     parameters: { comparison: string[] },
@@ -16,36 +30,21 @@ class NotEqual extends ValidationRule {
   ) {
     for (const match of parameters.comparison) {
       if (match === value) {
-        if (label) {
-          const text =
-            interpolation === '{}'
-              ? 'The field {label} cannot be equal to {value}'
-              : 'The field :label cannot be equal to :value'
-
-          return this.replyFail(text, {
-            label: label,
-            value: value,
-          })
-        }
-
-        const text =
-          interpolation === '{}'
-            ? 'This field cannot be equal to {value}'
-            : 'This field cannot be equal to :value'
-
-        return this.replyFail(text, { value: value })
+        return this.replyFail(label, interpolation, { value: value })
       }
     }
 
-    return this.replySuccess()
+    return this.replySuccess(label, interpolation)
   }
 
-  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+  callback(value: Value, parameters: string[], label?: string, interpolation?: string) {
     if (parameters[0] === undefined) {
-      return this.replySuccess('A comparison value must be provided')
+      throw new Error('A comparison value must be provided')
     }
 
-    return this.validate(value, { comparison: parameters }, label, interpolation)
+    const parsedValue = typeof value === 'string' ? value : String(value)
+
+    return this.validate(parsedValue, { comparison: parameters }, label, interpolation)
   }
 }
 

@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,37 +9,43 @@ import { ValidationRule } from './validationRule'
 class MaxChars extends ValidationRule {
   name = 'max_chars'
 
-  validate(value: string, parameters: { max: number }, label?: string, interpolation?: string) {
-    if (value.length <= parameters.max) {
-      return this.replySuccess()
-    }
-
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? 'The field {label} cannot be more than {value} characters long'
-          : 'The field :label cannot be more than :value characters long'
-
-      return this.replyFail(text, {
-        label: label,
-        value: parameters.max.toString(),
-      })
-    }
-
-    const text =
-      interpolation === '{}'
-        ? 'This field cannot be more than {value} characters long'
-        : 'This field cannot be more than :value characters long'
-
-    return this.replyFail(text, { value: parameters.max.toString() })
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label cannot be more than :value characters long',
+        '{}': 'The field {label} cannot be more than {value} characters long',
+      },
+      withoutLabel: {
+        default: 'This field cannot be more than :value characters long',
+        '{}': 'This field cannot be more than {value} characters long',
+      },
+    },
   }
 
-  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
-    if (parameters[0] === undefined) {
-      return this.replySuccess('Maximum value must be provided')
+  validate(value: string, parameters: { max: number }, label?: string, interpolation?: string) {
+    if (value.length <= parameters.max) {
+      return this.replySuccess(label, interpolation)
     }
 
-    return this.validate(value, { max: parseInt(parameters[0]) }, label, interpolation)
+    return this.replyFail(label, interpolation, { value: parameters.max.toString() })
+  }
+
+  callback(value: Value, parameters: string[], label?: string, interpolation?: string) {
+    if (parameters[0] === undefined) {
+      throw new Error('A maximum value must be provided')
+    }
+
+    if (value === undefined || value === null) {
+      return this.replySuccess(label, interpolation)
+    }
+
+    if (typeof value === 'boolean') {
+      return this.replyFail(label, interpolation)
+    }
+
+    const parsedValue = typeof value === 'number' ? value.toString() : value
+
+    return this.validate(parsedValue, { max: parseInt(parameters[0]) }, label, interpolation)
   }
 }
 

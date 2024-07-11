@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,6 +9,18 @@ import { ValidationRule } from './validationRule'
 class NotRegex extends ValidationRule {
   name = 'not_regex'
 
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label does not match',
+        '{}': 'The field {label} does not match',
+      },
+      withoutLabel: {
+        default: 'This field does not match',
+      },
+    },
+  }
+
   validate(
     value: string,
     parameters: { pattern: string; flags?: string },
@@ -17,28 +30,26 @@ class NotRegex extends ValidationRule {
     const regex = new RegExp(parameters.pattern, parameters.flags)
 
     if (!regex.test(value)) {
-      return this.replySuccess()
+      return this.replySuccess(label, interpolation)
     }
 
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? "The field {label} doesn't match"
-          : "The field :label doesn't match"
-
-      return this.replyFail(text, { label: label })
-    }
-
-    return this.replyFail("This field doesn't match")
+    return this.replyFail(label, interpolation)
   }
 
-  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+  callback(value: Value, parameters: string[], label?: string, interpolation?: string) {
     if (parameters[0] === undefined) {
-      return this.replySuccess('A regex must be provided')
+      throw new Error('A regex must be provided')
+    }
+
+    let parsedValue = ''
+    if (typeof value === 'number') {
+      parsedValue = value.toString()
+    } else if (typeof value === 'string') {
+      parsedValue = value
     }
 
     return this.validate(
-      value,
+      parsedValue,
       { pattern: parameters[0], flags: parameters[1] },
       label,
       interpolation,

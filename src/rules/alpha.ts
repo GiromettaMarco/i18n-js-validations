@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -9,26 +10,33 @@ import { ValidationRule } from './validationRule'
 class Alpha extends ValidationRule {
   name = 'alpha'
 
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label can contain only alphabetic characters',
+        '{}': 'The field {label} can contain only alphabetic characters',
+      },
+      withoutLabel: {
+        default: 'This field can contain only alphabetic characters',
+      },
+    },
+  }
+
   validate(value: string, parameters: { ascii: boolean }, label?: string, interpolation?: string) {
     const regex = parameters.ascii ? /^[a-zA-Z]+$/u : /^[\p{L}\p{M}]+$/u
 
     if (regex.test(value)) {
-      return this.replySuccess()
+      return this.replySuccess(label, interpolation)
     }
 
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? 'The field {label} can contain only alphabetic characters'
-          : 'The field :label can contain only alphabetic characters'
-
-      return this.replyFail(text, { label: label })
-    }
-
-    return this.replyFail('This field can contain only alphabetic characters')
+    return this.replyFail(label, interpolation)
   }
 
-  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+  callback(value: Value, parameters: string[], label?: string, interpolation?: string) {
+    if (typeof value !== 'string') {
+      return this.replyFail(label, interpolation)
+    }
+
     const ascii = Boolean(parameters[0] === 'ascii')
 
     return this.validate(value, { ascii: ascii }, label, interpolation)

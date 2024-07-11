@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,23 +9,30 @@ import { ValidationRule } from './validationRule'
 class Numberic extends ValidationRule {
   name = 'numeric'
 
-  validate(value: string, label?: string, interpolation?: string) {
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label must be a number',
+        '{}': 'The field {label} must be a number',
+      },
+      withoutLabel: {
+        default: 'This field must be a number',
+      },
+    },
+  }
+
+  validate(value: Value, label?: string, interpolation?: string) {
+    if (typeof value === 'number') {
+      return this.replySuccess(label, interpolation)
+    }
+
     const regex = /^[0-9.]+$/
 
-    if (regex.test(value) && !isNaN(Number(value))) {
-      return this.replySuccess()
+    if (regex.test(String(value)) && !isNaN(Number(value))) {
+      return this.replySuccess(label, interpolation)
     }
 
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? 'The field {label} must be a number'
-          : 'The field :label must be a number'
-
-      return this.replyFail(text, { label: label })
-    }
-
-    return this.replyFail('This field must be a number')
+    return this.replyFail(label, interpolation)
   }
 }
 

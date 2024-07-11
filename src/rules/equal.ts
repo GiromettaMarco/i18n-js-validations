@@ -1,3 +1,4 @@
+import type { Value } from 'src/validation'
 import { ValidationRule } from './validationRule'
 
 /**
@@ -8,6 +9,18 @@ import { ValidationRule } from './validationRule'
 class Equal extends ValidationRule {
   name = 'equal'
 
+  strings = {
+    fail: {
+      withLabel: {
+        default: 'The field :label does not match',
+        '{}': 'The field {label} does not match',
+      },
+      withoutLabel: {
+        default: 'This field does not match',
+      },
+    },
+  }
+
   validate(
     value: string,
     parameters: { comparison: string[] },
@@ -16,28 +29,21 @@ class Equal extends ValidationRule {
   ) {
     for (const match of parameters.comparison) {
       if (match === value) {
-        return this.replySuccess()
+        return this.replySuccess(label, interpolation)
       }
     }
 
-    if (label) {
-      const text =
-        interpolation === '{}'
-          ? "The field {label} doesn't match"
-          : "The field :label doesn't match"
-
-      return this.replyFail(text, { label: label })
-    }
-
-    return this.replyFail("This field doesn't match")
+    return this.replyFail(label, interpolation)
   }
 
-  callback = (value: string, parameters: string[], label?: string, interpolation?: string) => {
+  callback(value: Value, parameters: string[], label?: string, interpolation?: string) {
     if (parameters[0] === undefined) {
-      return this.replySuccess('A comparison value must be provided')
+      throw new Error('A comparison value must be provided')
     }
 
-    return this.validate(value, { comparison: parameters }, label, interpolation)
+    const parsedValue = typeof value === 'string' ? value : String(value)
+
+    return this.validate(parsedValue, { comparison: parameters }, label, interpolation)
   }
 }
 
