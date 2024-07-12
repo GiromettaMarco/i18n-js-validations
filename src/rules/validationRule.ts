@@ -21,7 +21,7 @@ export abstract class ValidationRule {
   /**
    * Reply strings (optional)
    */
-  abstract strings?: {
+  strings?: {
     fail?: StringsGroup
     success?: StringsGroup
   }
