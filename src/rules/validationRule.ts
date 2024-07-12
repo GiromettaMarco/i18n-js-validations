@@ -1,6 +1,6 @@
-import { Message } from 'src/replies/message'
-import { RuleReply } from 'src/replies/ruleReply'
-import type { Value } from 'src/validation'
+import { Message } from '@/replies/message'
+import { RuleReply } from '@/replies/ruleReply'
+import type { Value } from '@/validation'
 
 export interface interpolatedString {
   default: string

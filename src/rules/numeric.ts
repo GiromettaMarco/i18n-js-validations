@@ -1,4 +1,4 @@
-import type { Value } from 'src/validation'
+import type { Value } from '@/validation'
 import { ValidationRule } from './validationRule'
 
 /**

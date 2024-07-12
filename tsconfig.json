@@ -12,6 +12,9 @@
     "noEmit": true,
     "jsx": "preserve",
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "types": ["vite/client"]
   },
   "exclude": ["node_modules", "tests"]
