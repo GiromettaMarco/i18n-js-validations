@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax numeric
  */
-class Numberic extends ValidationRule {
+export class Numeric extends ValidationRule {
   name = 'numeric'
 
   strings = {
@@ -35,5 +35,3 @@ class Numberic extends ValidationRule {
     return this.replyFail(label, interpolation)
   }
 }
-
-export const numeric = new Numberic()

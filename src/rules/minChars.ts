@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax min_chars:value
  */
-class MinChars extends ValidationRule {
+export class MinChars extends ValidationRule {
   name = 'min_chars'
 
   strings = {
@@ -49,5 +49,3 @@ class MinChars extends ValidationRule {
     return this.validate(parsedValue, { min: parseInt(parameters[0]) }, label, interpolation)
   }
 }
-
-export const min_chars = new MinChars()

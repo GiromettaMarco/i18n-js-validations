@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax max_chars:value
  */
-class MaxChars extends ValidationRule {
+export class MaxChars extends ValidationRule {
   name = 'max_chars'
 
   strings = {
@@ -48,5 +48,3 @@ class MaxChars extends ValidationRule {
     return this.validate(parsedValue, { max: parseInt(parameters[0]) }, label, interpolation)
   }
 }
-
-export const max_chars = new MaxChars()

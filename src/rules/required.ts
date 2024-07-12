@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax required
  */
-class Required extends ValidationRule {
+export class Required extends ValidationRule {
   name = 'required'
 
   strings = {
@@ -45,5 +45,3 @@ class Required extends ValidationRule {
     return this.replyFail(label, interpolation)
   }
 }
-
-export const required = new Required()

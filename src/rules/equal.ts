@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax equal:match1,match2,...
  */
-class Equal extends ValidationRule {
+export class Equal extends ValidationRule {
   name = 'equal'
 
   strings = {
@@ -46,5 +46,3 @@ class Equal extends ValidationRule {
     return this.validate(parsedValue, { comparison: parameters }, label, interpolation)
   }
 }
-
-export const equal = new Equal()

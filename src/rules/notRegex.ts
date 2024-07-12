@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax not_regex:pattern,flags
  */
-class NotRegex extends ValidationRule {
+export class NotRegex extends ValidationRule {
   name = 'not_regex'
 
   strings = {
@@ -56,5 +56,3 @@ class NotRegex extends ValidationRule {
     )
   }
 }
-
-export const not_regex = new NotRegex()

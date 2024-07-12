@@ -7,7 +7,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax alpha | alpha:ascii
  */
-class Alpha extends ValidationRule {
+export class Alpha extends ValidationRule {
   name = 'alpha'
 
   strings = {
@@ -42,5 +42,3 @@ class Alpha extends ValidationRule {
     return this.validate(value, { ascii: ascii }, label, interpolation)
   }
 }
-
-export const alpha = new Alpha()

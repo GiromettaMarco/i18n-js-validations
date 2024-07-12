@@ -8,7 +8,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax alpha_dash | alpha_dash:ascii
  */
-class AlphaDash extends ValidationRule {
+export class AlphaDash extends ValidationRule {
   name = 'alpha_dash'
 
   strings = {
@@ -46,5 +46,3 @@ class AlphaDash extends ValidationRule {
     return this.validate(parsedValue, { ascii: ascii }, label, interpolation)
   }
 }
-
-export const alpha_dash = new AlphaDash()

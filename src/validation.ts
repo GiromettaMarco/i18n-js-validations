@@ -1,21 +1,21 @@
 import { Message } from './replies/message'
 import { RuleReply } from './replies/ruleReply'
 import { ValidationReply } from './replies/validationReply'
-import { alpha } from './rules/alpha'
-import { alpha_dash } from './rules/alphaDash'
-import { alpha_num } from './rules/alphaNum'
-import { equal } from './rules/equal'
-import { hex_color } from './rules/hexColor'
-import { integer } from './rules/integer'
-import { max } from './rules/max'
-import { max_chars } from './rules/maxChars'
-import { min } from './rules/min'
-import { min_chars } from './rules/minChars'
-import { not_equal } from './rules/notEqual'
-import { not_regex } from './rules/notRegex'
-import { numeric } from './rules/numeric'
-import { regex } from './rules/regex'
-import { required } from './rules/required'
+import { Alpha } from './rules/alpha'
+import { AlphaDash } from './rules/alphaDash'
+import { AlphaNum } from './rules/alphaNum'
+import { Equal } from './rules/equal'
+import { HexColor } from './rules/hexColor'
+import { Integer } from './rules/integer'
+import { Max } from './rules/max'
+import { MaxChars } from './rules/maxChars'
+import { Min } from './rules/min'
+import { MinChars } from './rules/minChars'
+import { NotEqual } from './rules/notEqual'
+import { NotRegex } from './rules/notRegex'
+import { Numeric } from './rules/numeric'
+import { Regex } from './rules/regex'
+import { Required } from './rules/required'
 import type { ValidationRule } from './rules/validationRule'
 
 export type Value = string | number | boolean | null | undefined
@@ -32,21 +32,21 @@ export class Validation {
   rules: {
     [key: string]: ValidationRule
   } = {
-    alpha,
-    alpha_dash,
-    alpha_num,
-    equal,
-    hex_color,
-    integer,
-    regex,
-    required,
-    max,
-    max_chars,
-    min,
-    min_chars,
-    not_equal,
-    not_regex,
-    numeric,
+    alpha: new Alpha(),
+    alpha_dash: new AlphaDash(),
+    alpha_num: new AlphaNum(),
+    equal: new Equal(),
+    hex_color: new HexColor(),
+    integer: new Integer(),
+    regex: new Regex(),
+    required: new Required(),
+    max: new Max(),
+    max_chars: new MaxChars(),
+    min: new Min(),
+    min_chars: new MinChars(),
+    not_equal: new NotEqual(),
+    not_regex: new NotRegex(),
+    numeric: new Numeric(),
   }
 
   /**

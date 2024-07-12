@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax regex:pattern,flags
  */
-class Regex extends ValidationRule {
+export class Regex extends ValidationRule {
   name = 'regex'
 
   strings = {
@@ -56,5 +56,3 @@ class Regex extends ValidationRule {
     )
   }
 }
-
-export const regex = new Regex()

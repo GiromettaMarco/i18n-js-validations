@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax integer
  */
-class Integer extends ValidationRule {
+export class Integer extends ValidationRule {
   name = 'integer'
 
   strings = {
@@ -37,5 +37,3 @@ class Integer extends ValidationRule {
     return this.replyFail(label, interpolation)
   }
 }
-
-export const integer = new Integer()

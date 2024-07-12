@@ -7,7 +7,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax alpha_num | alpha_num:ascii
  */
-class AlphaNum extends ValidationRule {
+export class AlphaNum extends ValidationRule {
   name = 'alpha_num'
 
   strings = {
@@ -44,5 +44,3 @@ class AlphaNum extends ValidationRule {
     return this.validate(parsedValue, { ascii: ascii }, label, interpolation)
   }
 }
-
-export const alpha_num = new AlphaNum()

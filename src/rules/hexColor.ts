@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax hex_color
  */
-class HexColor extends ValidationRule {
+export class HexColor extends ValidationRule {
   name = 'hex_color'
 
   strings = {
@@ -35,5 +35,3 @@ class HexColor extends ValidationRule {
     return this.replyFail(label, interpolation)
   }
 }
-
-export const hex_color = new HexColor()

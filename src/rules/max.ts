@@ -6,7 +6,7 @@ import { ValidationRule } from './validationRule'
  *
  * @syntax max:value
  */
-class Max extends ValidationRule {
+export class Max extends ValidationRule {
   name = 'max'
 
   strings = {
@@ -47,5 +47,3 @@ class Max extends ValidationRule {
     return this.validate(parsedValue, { max: Number(parameters[0]) }, label, interpolation)
   }
 }
-
-export const max = new Max()
