@@ -13,7 +13,7 @@ class FirstA extends ValidationRule {
       return this.replySuccess()
     }
 
-    return this.replyFail('This field is required')
+    return this.replyFail()
   }
 }
 
