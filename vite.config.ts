@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   resolve: {
@@ -11,9 +12,10 @@ export default defineConfig({
     minify: true,
     reportCompressedSize: true,
     lib: {
-      entry: 'src/validation.ts',
+      entry: resolve('src/validation.ts'),
       formats: ['es', 'cjs'],
     },
     outDir: 'dist',
   },
+  plugins: [dts({ rollupTypes: true })],
 })

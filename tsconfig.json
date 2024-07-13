@@ -15,7 +15,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "declaration": true
   },
   "exclude": ["node_modules", "tests"]
 }
