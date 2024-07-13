@@ -1,31 +1,32 @@
 {
-  "name": "i18n-validations",
+  "name": "i18n-js-validations",
   "version": "1.0.0",
   "description": "Low-level JavaScript value validator predisposed for i18n and extension",
   "keywords": [
-    "validation"
+    "validation",
+    "i18n"
   ],
-  "homepage": "https://github.com/GiromettaMarco/i18n-validations#readme",
+  "homepage": "https://github.com/GiromettaMarco/i18n-js-validations#readme",
   "bugs": {
-    "url": "https://github.com/GiromettaMarco/i18n-validations/issues"
+    "url": "https://github.com/GiromettaMarco/i18n-js-validations/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GiromettaMarco/i18n-validations.git"
+    "url": "git+https://github.com/GiromettaMarco/i18n-js-validations.git"
   },
   "author": "Girometta Marco",
-  "main": "dist/i18n-validations.js",
+  "main": "dist/i18n-js-validations.js",
   "files": [
     "dist"
   ],
   "type": "module",
   "exports": {
-    "types": "./dist/i18n-validations.d.ts",
-    "default": "./dist/i18n-validations.js"
+    "types": "./dist/i18n-js-validations.d.ts",
+    "default": "./dist/i18n-js-validations.js"
   },
-  "module": "./dist/i18n-validations.js",
-  "types": "./dist/i18n-validations.d.ts",
+  "module": "./dist/i18n-js-validations.js",
+  "types": "./dist/i18n-js-validations.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
