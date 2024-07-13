@@ -12,7 +12,7 @@ export default defineConfig({
     minify: true,
     reportCompressedSize: true,
     lib: {
-      entry: resolve('src/validation.ts'),
+      entry: resolve('src/index.ts'),
       formats: ['es', 'cjs'],
     },
     outDir: 'dist',

@@ -1,9 +1,9 @@
-declare interface interpolatedString {
+export declare interface interpolatedString {
     default: string;
     [interpolation: string]: string;
 }
 
-declare class Message {
+export declare class Message {
     key: string;
     parameters?: {
         [key: string]: string;
@@ -13,19 +13,14 @@ declare class Message {
     });
 }
 
-export declare interface Options {
-    customRules?: ValidationRule[];
-    interpolation?: string;
-}
-
-declare class RuleReply {
+export declare class RuleReply {
     rule: string;
     passed: boolean;
     message?: Message;
     constructor(rule: string, passed: boolean, message?: Message);
 }
 
-declare interface StringsGroup {
+export declare interface StringsGroup {
     withLabel?: interpolatedString;
     withoutLabel?: interpolatedString;
 }
@@ -50,7 +45,7 @@ export declare class Validation {
      *
      * @param options
      */
-    constructor(options?: Options);
+    constructor(options?: ValidationOptions);
     /**
      * Store replies from the latest validation.
      */
@@ -100,7 +95,12 @@ export declare class Validation {
     validate(value: Value, rules: string[], label?: string): boolean;
 }
 
-declare class ValidationReply {
+export declare interface ValidationOptions {
+    customRules?: ValidationRule[];
+    interpolation?: string;
+}
+
+export declare class ValidationReply {
     replies: RuleReply[];
     hasErrors: boolean;
     errorMessages: Message[];
@@ -108,7 +108,7 @@ declare class ValidationReply {
     push(reply: RuleReply): number;
 }
 
-declare abstract class ValidationRule {
+export declare abstract class ValidationRule {
     /**
      * The name of the validation rule (snake_case)
      */

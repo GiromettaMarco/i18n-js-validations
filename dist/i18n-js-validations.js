@@ -16,19 +16,6 @@ class c {
     this.rule = a, this.passed = e, s !== void 0 && (this.message = s);
   }
 }
-class g {
-  constructor() {
-    l(this, "replies", []);
-    l(this, "hasErrors", !1);
-    l(this, "errorMessages", []);
-  }
-  clear() {
-    this.hasErrors = !1, this.replies = [], this.errorMessages = [];
-  }
-  push(a) {
-    return a.passed || (this.hasErrors = !0, a.message !== void 0 && this.errorMessages.push(a.message)), this.replies.push(a);
-  }
-}
 class h {
   constructor() {
     /**
@@ -71,6 +58,19 @@ class h {
     const t = e ? "withLabel" : "withoutLabel";
     if ((i = (r = this.strings) == null ? void 0 : r[a]) != null && i[t])
       return s && this.strings[a][t][s] ? this.strings[a][t][s] : this.strings[a][t].default;
+  }
+}
+class g {
+  constructor() {
+    l(this, "replies", []);
+    l(this, "hasErrors", !1);
+    l(this, "errorMessages", []);
+  }
+  clear() {
+    this.hasErrors = !1, this.replies = [], this.errorMessages = [];
+  }
+  push(a) {
+    return a.passed || (this.hasErrors = !0, a.message !== void 0 && this.errorMessages.push(a.message)), this.replies.push(a);
   }
 }
 class b extends h {
@@ -579,5 +579,9 @@ class A {
   }
 }
 export {
-  A as Validation
+  d as Message,
+  c as RuleReply,
+  A as Validation,
+  g as ValidationReply,
+  h as ValidationRule
 };

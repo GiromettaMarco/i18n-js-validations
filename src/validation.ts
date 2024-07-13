@@ -20,7 +20,7 @@ import type { ValidationRule } from './rules/validationRule'
 
 export type Value = string | number | boolean | null | undefined
 
-export interface Options {
+export interface ValidationOptions {
   customRules?: ValidationRule[]
   interpolation?: string
 }
@@ -63,7 +63,7 @@ export class Validation {
    *
    * @param options
    */
-  constructor(options?: Options) {
+  constructor(options?: ValidationOptions) {
     if (options?.customRules) {
       for (const customRule of options.customRules) {
         this.addRule(customRule)

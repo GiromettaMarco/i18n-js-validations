@@ -1,6 +1,6 @@
 {
   "name": "i18n-js-validations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Low-level JavaScript value validator predisposed for i18n and extension",
   "keywords": [
     "validation",
