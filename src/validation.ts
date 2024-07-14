@@ -127,7 +127,7 @@ export class Validation {
    */
   validateSingle(value: Value, rule: string, parameters: string[], label?: string): RuleReply {
     if (!this.rules[rule]) {
-      return new RuleReply(rule, true, new Message("Validation rule doesn't exist"))
+      throw new Error('Validation rule does not exist')
     }
 
     if (this.rules[rule].callback) {
@@ -142,8 +142,8 @@ export class Validation {
    *
    * @param value The value to test
    * @param rules An array of validation rule names
-   * @param label Set a custom label for error messages
-   * @returns Return TRUE if no validation errors are detected and FALSE otherwise
+   * @param label Set a custom label for messages
+   * @returns Return true if no validation errors are detected and false otherwise
    */
   validate(value: Value, rules: string[], label?: string): boolean {
     // Clear replies
