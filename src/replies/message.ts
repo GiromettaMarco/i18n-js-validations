@@ -1,14 +1,15 @@
 export class Message {
   key: string
-  parameters?: {
+  replacements?: {
     [key: string]: string
   }
+  trans?: string
 
-  constructor(key: string, parameters?: { [key: string]: string }) {
+  constructor(key: string, replacements?: { [key: string]: string }) {
     this.key = key
 
-    if (parameters) {
-      this.parameters = parameters
+    if (replacements) {
+      this.replacements = replacements
     }
   }
 }

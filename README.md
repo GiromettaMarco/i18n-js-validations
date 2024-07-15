@@ -11,6 +11,7 @@ This package aims to provide low-level validations for javaScript primitive valu
 - [Rule Reply](#rule-reply)
 - [Available Validation Rules](#available-validation-rules)
 - [Define Custom Rules](#define-custom-rules)
+- [Automated Translations](#automated-translations)
 - [License](#license)
 
 ## Installation
@@ -39,6 +40,9 @@ new Validation({
     new CustomRule(),
   ],
   interpolation: '{}',
+  translator: (key, replacements?) => {
+    // ...
+  }
 })
 ```
 
@@ -51,6 +55,10 @@ An array of custom validation rules that will be added to the existing ones (see
 ### interpolation
 
 A key that identifies the interpolation syntax of validation messages (see [Message Interpolation](#message-interpolation)).
+
+### translator
+
+A callback used to generate translated messages (see [Automated Translations](#automated-translations)).
 
 ## validate()
 
@@ -111,9 +119,10 @@ In order to support i18n interpolation, messages are wrapped into a ```Message``
 ```ts
 class Message {
   key: string
-  parameters?: {
+  replacements?: {
     [key: string]: string
   }
+  trans?: string
 
   // ...
 }
@@ -137,11 +146,15 @@ $v.interpolation = "{}"
 "The field {label} cannot be more than {value} characters long"
 ```
 
-### parameters
+### replacements
 
-The ```parameters``` property will contain a key paired object with translation parameters as keys and replacements as values.
+The ```replacements``` property will contain a key paired object with translation parameters as keys and replacements as values.
 
-If the translation string does not support any parameter, the ```parameters``` property will be undefined.
+If the translation string does not require any replacement, the ```replacements``` property will be undefined.
+
+### trans
+
+If a translator callback has been defined, this property will contain a translated string (see [Automated Translations](#automated-translations)).
 
 ## Rule Reply
 
@@ -348,6 +361,30 @@ Must return a ```RuleReply```.
 Object used to store reply strings used to generate reply ```Message```s.
 
 Strings can be accessed using the ```ValidationRule```'s helper method ```getString()```.
+
+## Automated Translations
+
+If a translator callback has been defined (see [Validation Options](#validation-options)), the ```Validation``` object will use it to generate and add a translated string to every ```Message```.
+
+The translator callback recives a translation key as first argument and a key paired object with replacements as second argument (or undefined if no replacements are present).
+
+The translator callback must return a string.
+
+```js
+new Validation({
+  translator: (key, replacements?) => {
+    return $t(key, replacements)
+  }
+})
+```
+
+It is also possible to assign a translator callback to a ```Validation``` object through its translator property:
+
+```js
+$v.translator = (key, replacements?) => {
+  return $t(key, replacements)
+}
+```
 
 ## License
 

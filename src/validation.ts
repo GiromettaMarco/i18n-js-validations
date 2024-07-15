@@ -20,9 +20,15 @@ import type { ValidationRule } from './rules/validationRule'
 
 export type Value = string | number | boolean | null | undefined
 
+export type Translator = (key: string, replacements?: { [key: string]: string }) => string
+
 export interface ValidationOptions {
+  /** An array of custom rule objects. */
   customRules?: ValidationRule[]
+  /** Interpolation key syntax for reply messages (default: ":"). */
   interpolation?: string
+  /** Callback used to generate translated messages. */
+  translator?: Translator
 }
 
 export class Validation {
@@ -59,6 +65,11 @@ export class Validation {
   interpolation: string = ':'
 
   /**
+   * Callback used to generate translated messages.
+   */
+  translator?: Translator
+
+  /**
    * Make a new validation object.
    *
    * @param options
@@ -72,6 +83,10 @@ export class Validation {
 
     if (options?.interpolation) {
       this.interpolation = options.interpolation
+    }
+
+    if (options?.translator) {
+      this.translator = this.translator
     }
   }
 
@@ -123,7 +138,7 @@ export class Validation {
    * @param rule The validation rule to apply
    * @param parameters Parameters used by some rules (like min and max)
    * @param label Set a custom label for error messages
-   * @returns Return a RuleReply with a message key in case of error
+   * @returns A new RuleReply
    */
   validateSingle(value: Value, rule: string, parameters: string[], label?: string): RuleReply {
     if (!this.rules[rule]) {
@@ -160,7 +175,18 @@ export class Validation {
       }
 
       // Validate the value one rule at a time
-      this.reply.push(this.validateSingle(value, ruleParams[0], parameters, label))
+      const validationReply = this.validateSingle(value, ruleParams[0], parameters, label)
+
+      // Translate the message if possible
+      if (this.translator && validationReply.message) {
+        validationReply.message.trans = this.translator(
+          validationReply.message.key,
+          validationReply.message.replacements,
+        )
+      }
+
+      // Store the reply
+      this.reply.push(validationReply)
     }
 
     return !this.reply.hasErrors

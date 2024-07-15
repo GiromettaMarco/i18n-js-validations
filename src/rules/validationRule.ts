@@ -52,14 +52,14 @@ export abstract class ValidationRule {
    * @param type "fail" or "success"
    * @param label Optional label for the reply message
    * @param interpolation Interpolation type
-   * @param parameters Message parameters for interpolation
+   * @param replacements Message parameters for interpolation
    * @returns A new RuleReply
    */
   reply(
     type: 'fail' | 'success' = 'fail',
     label?: string,
     interpolation?: string,
-    parameters?: { [key: string]: string },
+    replacements?: { [key: string]: string },
   ) {
     const passed = type === 'success'
     const hasLabel = label !== undefined && label !== ''
@@ -69,17 +69,17 @@ export abstract class ValidationRule {
       return new RuleReply(this.name, passed)
     }
 
-    const parsedParameters = hasLabel ? { label: label, ...parameters } : parameters
+    const parsedReplacements = hasLabel ? { label: label, ...replacements } : replacements
 
-    return new RuleReply(this.name, passed, new Message(string, parsedParameters))
+    return new RuleReply(this.name, passed, new Message(string, parsedReplacements))
   }
 
-  replySuccess(label?: string, interpolation?: string, parameters?: { [key: string]: string }) {
-    return this.reply('success', label, interpolation, parameters)
+  replySuccess(label?: string, interpolation?: string, replacements?: { [key: string]: string }) {
+    return this.reply('success', label, interpolation, replacements)
   }
 
-  replyFail(label?: string, interpolation?: string, parameters?: { [key: string]: string }) {
-    return this.reply('fail', label, interpolation, parameters)
+  replyFail(label?: string, interpolation?: string, replacements?: { [key: string]: string }) {
+    return this.reply('fail', label, interpolation, replacements)
   }
 
   /**

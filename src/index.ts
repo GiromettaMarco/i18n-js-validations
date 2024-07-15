@@ -2,4 +2,4 @@ export { ValidationRule, type interpolatedString, type StringsGroup } from '@/ru
 export { Message } from '@/replies/message'
 export { RuleReply } from '@/replies/ruleReply'
 export { ValidationReply } from '@/replies/validationReply'
-export { Validation, type Value, type ValidationOptions } from './validation'
+export { Validation, type Translator, type Value, type ValidationOptions } from './validation'

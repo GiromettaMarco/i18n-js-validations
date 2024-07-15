@@ -1,19 +1,20 @@
-var o = Object.defineProperty;
-var m = (n, a, e) => a in n ? o(n, a, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[a] = e;
-var l = (n, a, e) => m(n, typeof a != "symbol" ? a + "" : a, e);
-class d {
-  constructor(a, e) {
+var f = Object.defineProperty;
+var o = (n, r, e) => r in n ? f(n, r, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[r] = e;
+var l = (n, r, e) => o(n, typeof r != "symbol" ? r + "" : r, e);
+class m {
+  constructor(r, e) {
     l(this, "key");
-    l(this, "parameters");
-    this.key = a, e && (this.parameters = e);
+    l(this, "replacements");
+    l(this, "trans");
+    this.key = r, e && (this.replacements = e);
   }
 }
 class c {
-  constructor(a, e, s) {
+  constructor(r, e, t) {
     l(this, "rule");
     l(this, "passed");
     l(this, "message");
-    this.rule = a, this.passed = e, s !== void 0 && (this.message = s);
+    this.rule = r, this.passed = e, t !== void 0 && (this.message = t);
   }
 }
 class h {
@@ -29,21 +30,21 @@ class h {
    * @param type "fail" or "success"
    * @param label Optional label for the reply message
    * @param interpolation Interpolation type
-   * @param parameters Message parameters for interpolation
+   * @param replacements Message parameters for interpolation
    * @returns A new RuleReply
    */
-  reply(a = "fail", e, s, t) {
-    const r = a === "success", i = e !== void 0 && e !== "", u = this.getString(a, i, s);
+  reply(r = "fail", e, t, s) {
+    const a = r === "success", i = e !== void 0 && e !== "", u = this.getString(r, i, t);
     if (u === void 0)
-      return new c(this.name, r);
-    const f = i ? { label: e, ...t } : t;
-    return new c(this.name, r, new d(u, f));
+      return new c(this.name, a);
+    const d = i ? { label: e, ...s } : s;
+    return new c(this.name, a, new m(u, d));
   }
-  replySuccess(a, e, s) {
-    return this.reply("success", a, e, s);
+  replySuccess(r, e, t) {
+    return this.reply("success", r, e, t);
   }
-  replyFail(a, e, s) {
-    return this.reply("fail", a, e, s);
+  replyFail(r, e, t) {
+    return this.reply("fail", r, e, t);
   }
   /**
    * Get a validation string.
@@ -53,11 +54,11 @@ class h {
    * @param interpolation Interpolation type
    * @returns The validation string or undefined if nothing were found
    */
-  getString(a = "fail", e = !1, s) {
-    var r, i;
-    const t = e ? "withLabel" : "withoutLabel";
-    if ((i = (r = this.strings) == null ? void 0 : r[a]) != null && i[t])
-      return s && this.strings[a][t][s] ? this.strings[a][t][s] : this.strings[a][t].default;
+  getString(r = "fail", e = !1, t) {
+    var a, i;
+    const s = e ? "withLabel" : "withoutLabel";
+    if ((i = (a = this.strings) == null ? void 0 : a[r]) != null && i[s])
+      return t && this.strings[r][s][t] ? this.strings[r][s][t] : this.strings[r][s].default;
   }
 }
 class g {
@@ -69,8 +70,8 @@ class g {
   clear() {
     this.hasErrors = !1, this.replies = [], this.errorMessages = [];
   }
-  push(a) {
-    return a.passed || (this.hasErrors = !0, a.message !== void 0 && this.errorMessages.push(a.message)), this.replies.push(a);
+  push(r) {
+    return r.passed || (this.hasErrors = !0, r.message !== void 0 && this.errorMessages.push(r.message)), this.replies.push(r);
   }
 }
 class b extends h {
@@ -89,14 +90,14 @@ class b extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return (s.ascii ? /^[a-zA-Z]+$/u : /^[\p{L}\p{M}]+$/u).test(e) ? this.replySuccess(t, r) : this.replyFail(t, r);
+  validate(e, t, s, a) {
+    return (t.ascii ? /^[a-zA-Z]+$/u : /^[\p{L}\p{M}]+$/u).test(e) ? this.replySuccess(s, a) : this.replyFail(s, a);
   }
-  callback(e, s, t, r) {
+  callback(e, t, s, a) {
     if (typeof e != "string")
-      return this.replyFail(t, r);
-    const i = s[0] === "ascii";
-    return this.validate(e, { ascii: i }, t, r);
+      return this.replyFail(s, a);
+    const i = t[0] === "ascii";
+    return this.validate(e, { ascii: i }, s, a);
   }
 }
 class p extends h {
@@ -115,15 +116,15 @@ class p extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return (s.ascii ? /^[a-zA-Z0-9_-]+$/u : /^[\p{L}\p{M}\p{N}_-]+$/u).test(e) ? this.replySuccess(t, r) : this.replyFail(t, r);
+  validate(e, t, s, a) {
+    return (t.ascii ? /^[a-zA-Z0-9_-]+$/u : /^[\p{L}\p{M}\p{N}_-]+$/u).test(e) ? this.replySuccess(s, a) : this.replyFail(s, a);
   }
-  callback(e, s, t, r) {
+  callback(e, t, s, a) {
     const i = typeof e == "number" ? e.toString() : e;
     if (typeof i != "string")
-      return this.replyFail(t, r);
-    const u = s[0] === "ascii";
-    return this.validate(i, { ascii: u }, t, r);
+      return this.replyFail(s, a);
+    const u = t[0] === "ascii";
+    return this.validate(i, { ascii: u }, s, a);
   }
 }
 class y extends h {
@@ -142,15 +143,15 @@ class y extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return (s.ascii ? /^[a-zA-Z0-9]+$/u : /^[\p{L}\p{M}\p{N}]+$/u).test(e) ? this.replySuccess(t, r) : this.replyFail(t, r);
+  validate(e, t, s, a) {
+    return (t.ascii ? /^[a-zA-Z0-9]+$/u : /^[\p{L}\p{M}\p{N}]+$/u).test(e) ? this.replySuccess(s, a) : this.replyFail(s, a);
   }
-  callback(e, s, t, r) {
+  callback(e, t, s, a) {
     const i = typeof e == "number" ? e.toString() : e;
     if (typeof i != "string")
-      return this.replyFail(t, r);
-    const u = s[0] === "ascii";
-    return this.validate(i, { ascii: u }, t, r);
+      return this.replyFail(s, a);
+    const u = t[0] === "ascii";
+    return this.validate(i, { ascii: u }, s, a);
   }
 }
 class w extends h {
@@ -169,17 +170,17 @@ class w extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    for (const i of s.comparison)
+  validate(e, t, s, a) {
+    for (const i of t.comparison)
       if (i === e)
-        return this.replySuccess(t, r);
-    return this.replyFail(t, r);
+        return this.replySuccess(s, a);
+    return this.replyFail(s, a);
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A comparison value must be provided");
     const i = typeof e == "string" ? e : String(e);
-    return this.validate(i, { comparison: s }, t, r);
+    return this.validate(i, { comparison: t }, s, a);
   }
 }
 class x extends h {
@@ -198,8 +199,8 @@ class x extends h {
       }
     });
   }
-  validate(e, s, t) {
-    return typeof e != "string" ? this.replyFail(s, t) : /^#(?:(?:[0-9a-f]{3}){1,2}|(?:[0-9a-f]{4}){1,2})$/i.test(e) ? this.replySuccess(s, t) : this.replyFail(s, t);
+  validate(e, t, s) {
+    return typeof e != "string" ? this.replyFail(t, s) : /^#(?:(?:[0-9a-f]{3}){1,2}|(?:[0-9a-f]{4}){1,2})$/i.test(e) ? this.replySuccess(t, s) : this.replyFail(t, s);
   }
 }
 class T extends h {
@@ -218,8 +219,8 @@ class T extends h {
       }
     });
   }
-  validate(e, s, t) {
-    return typeof e == "number" && Number.isInteger(e) ? this.replySuccess(s, t) : typeof e == "string" && /^[0-9.]+$/.test(e) && Number.isInteger(Number(e)) ? this.replySuccess(s, t) : this.replyFail(s, t);
+  validate(e, t, s) {
+    return typeof e == "number" && Number.isInteger(e) ? this.replySuccess(t, s) : typeof e == "string" && /^[0-9.]+$/.test(e) && Number.isInteger(Number(e)) ? this.replySuccess(t, s) : this.replyFail(t, s);
   }
 }
 class v extends h {
@@ -239,16 +240,16 @@ class v extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return e <= s.max ? this.replySuccess(t, r) : this.replyFail(t, r, { value: s.max.toString() });
+  validate(e, t, s, a) {
+    return e <= t.max ? this.replySuccess(s, a) : this.replyFail(s, a, { value: t.max.toString() });
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A maximum value must be provided");
     if (typeof e != "number" && typeof e != "string")
-      return this.replyFail(t, r);
+      return this.replyFail(s, a);
     const i = Number(e);
-    return isNaN(i) ? this.replyFail(t, r) : this.validate(i, { max: Number(s[0]) }, t, r);
+    return isNaN(i) ? this.replyFail(s, a) : this.validate(i, { max: Number(t[0]) }, s, a);
   }
 }
 class S extends h {
@@ -268,18 +269,16 @@ class S extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return e.length <= s.max ? this.replySuccess(t, r) : this.replyFail(t, r, { value: s.max.toString() });
+  validate(e, t, s, a) {
+    return e.length <= t.max ? this.replySuccess(s, a) : this.replyFail(s, a, { value: t.max.toString() });
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A maximum value must be provided");
-    if (e == null)
-      return this.replySuccess(t, r);
     if (typeof e == "boolean")
-      return this.replyFail(t, r);
-    const i = typeof e == "number" ? e.toString() : e;
-    return this.validate(i, { max: parseInt(s[0]) }, t, r);
+      return this.replyFail(s, a);
+    let i = "";
+    return typeof e == "number" ? i = e.toString() : typeof e == "string" && (i = e), this.validate(i, { max: parseInt(t[0]) }, s, a);
   }
 }
 class L extends h {
@@ -299,16 +298,16 @@ class L extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return e >= s.min ? this.replySuccess(t, r) : this.replyFail(t, r, { value: s.min.toString() });
+  validate(e, t, s, a) {
+    return e >= t.min ? this.replySuccess(s, a) : this.replyFail(s, a, { value: t.min.toString() });
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A minimum value must be provided");
     if (typeof e != "number" && typeof e != "string")
-      return this.replyFail(t, r);
+      return this.replyFail(s, a);
     const i = Number(e);
-    return isNaN(i) ? this.replyFail(t, r) : this.validate(i, { min: Number(s[0]) }, t, r);
+    return isNaN(i) ? this.replyFail(s, a) : this.validate(i, { min: Number(t[0]) }, s, a);
   }
 }
 class F extends h {
@@ -328,16 +327,16 @@ class F extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return e.length >= s.min ? this.replySuccess(t, r) : this.replyFail(t, r, { value: s.min.toString() });
+  validate(e, t, s, a) {
+    return e.length >= t.min ? this.replySuccess(s, a) : this.replyFail(s, a, { value: t.min.toString() });
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A minimum value must be provided");
     if (typeof e == "boolean")
-      return this.replyFail(t, r);
+      return this.replyFail(s, a);
     let i = "";
-    return typeof e == "number" ? i = e.toString() : typeof e == "string" && (i = e), this.validate(i, { min: parseInt(s[0]) }, t, r);
+    return typeof e == "number" ? i = e.toString() : typeof e == "string" && (i = e), this.validate(i, { min: parseInt(t[0]) }, s, a);
   }
 }
 class N extends h {
@@ -357,17 +356,17 @@ class N extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    for (const i of s.comparison)
+  validate(e, t, s, a) {
+    for (const i of t.comparison)
       if (i === e)
-        return this.replyFail(t, r, { value: e });
-    return this.replySuccess(t, r);
+        return this.replyFail(s, a, { value: e });
+    return this.replySuccess(s, a);
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A comparison value must be provided");
     const i = typeof e == "string" ? e : String(e);
-    return this.validate(i, { comparison: s }, t, r);
+    return this.validate(i, { comparison: t }, s, a);
   }
 }
 class E extends h {
@@ -386,22 +385,22 @@ class E extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return new RegExp(s.pattern, s.flags).test(e) ? this.replyFail(t, r) : this.replySuccess(t, r);
+  validate(e, t, s, a) {
+    return new RegExp(t.pattern, t.flags).test(e) ? this.replyFail(s, a) : this.replySuccess(s, a);
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A regex must be provided");
     let i = "";
     return typeof e == "number" ? i = e.toString() : typeof e == "string" && (i = e), this.validate(
       i,
-      { pattern: s[0], flags: s[1] },
-      t,
-      r
+      { pattern: t[0], flags: t[1] },
+      s,
+      a
     );
   }
 }
-class q extends h {
+class R extends h {
   constructor() {
     super(...arguments);
     l(this, "name", "numeric");
@@ -417,11 +416,11 @@ class q extends h {
       }
     });
   }
-  validate(e, s, t) {
-    return typeof e == "number" ? this.replySuccess(s, t) : /^[0-9.]+$/.test(String(e)) && !isNaN(Number(e)) ? this.replySuccess(s, t) : this.replyFail(s, t);
+  validate(e, t, s) {
+    return typeof e == "number" ? this.replySuccess(t, s) : /^[0-9.]+$/.test(String(e)) && !isNaN(Number(e)) ? this.replySuccess(t, s) : this.replyFail(t, s);
   }
 }
-class _ extends h {
+class k extends h {
   constructor() {
     super(...arguments);
     l(this, "name", "regex");
@@ -437,22 +436,22 @@ class _ extends h {
       }
     });
   }
-  validate(e, s, t, r) {
-    return new RegExp(s.pattern, s.flags).test(e) ? this.replySuccess(t, r) : this.replyFail(t, r);
+  validate(e, t, s, a) {
+    return new RegExp(t.pattern, t.flags).test(e) ? this.replySuccess(s, a) : this.replyFail(s, a);
   }
-  callback(e, s, t, r) {
-    if (s[0] === void 0)
+  callback(e, t, s, a) {
+    if (t[0] === void 0)
       throw new Error("A regex must be provided");
     let i = "";
     return typeof e == "number" ? i = e.toString() : typeof e == "string" && (i = e), this.validate(
       i,
-      { pattern: s[0], flags: s[1] },
-      t,
-      r
+      { pattern: t[0], flags: t[1] },
+      s,
+      a
     );
   }
 }
-class k extends h {
+class q extends h {
   constructor() {
     super(...arguments);
     l(this, "name", "required");
@@ -468,8 +467,8 @@ class k extends h {
       }
     });
   }
-  validate(e, s, t) {
-    return e == null ? this.replyFail(s, t) : typeof e == "boolean" ? this.replySuccess(s, t) : typeof e == "number" ? isNaN(e) ? this.replyFail(s, t) : this.replySuccess(s, t) : e.trim().length > 0 ? this.replySuccess(s, t) : this.replyFail(s, t);
+  validate(e, t, s) {
+    return e == null ? this.replyFail(t, s) : typeof e == "boolean" ? this.replySuccess(t, s) : typeof e == "number" ? isNaN(e) ? this.replyFail(t, s) : this.replySuccess(t, s) : e.trim().length > 0 ? this.replySuccess(t, s) : this.replyFail(t, s);
   }
 }
 class A {
@@ -478,7 +477,7 @@ class A {
    *
    * @param options
    */
-  constructor(a) {
+  constructor(r) {
     /**
      * Validation rules available to this Validation object.
      */
@@ -489,15 +488,15 @@ class A {
       equal: new w(),
       hex_color: new x(),
       integer: new T(),
-      regex: new _(),
-      required: new k(),
+      regex: new k(),
+      required: new q(),
       max: new v(),
       max_chars: new S(),
       min: new L(),
       min_chars: new F(),
       not_equal: new N(),
       not_regex: new E(),
-      numeric: new q()
+      numeric: new R()
     });
     /**
      * Interpolation key syntax for reply messages.
@@ -508,21 +507,25 @@ class A {
      */
     l(this, "interpolation", ":");
     /**
+     * Callback used to generate translated messages.
+     */
+    l(this, "translator");
+    /**
      * Store replies from the latest validation.
      */
     l(this, "reply", new g());
-    if (a != null && a.customRules)
-      for (const e of a.customRules)
+    if (r != null && r.customRules)
+      for (const e of r.customRules)
         this.addRule(e);
-    a != null && a.interpolation && (this.interpolation = a.interpolation);
+    r != null && r.interpolation && (this.interpolation = r.interpolation), r != null && r.translator && (this.translator = this.translator);
   }
   /**
    * Add support for a custom validation rule.
    *
    * @param rule
    */
-  addRule(a) {
-    this.rules[a.name] = a;
+  addRule(r) {
+    this.rules[r.name] = r;
   }
   /**
    * Check for validation errors.
@@ -555,31 +558,38 @@ class A {
    * @param rule The validation rule to apply
    * @param parameters Parameters used by some rules (like min and max)
    * @param label Set a custom label for error messages
-   * @returns Return a RuleReply with a message key in case of error
+   * @returns A new RuleReply
    */
-  validateSingle(a, e, s, t) {
-    return this.rules[e] ? this.rules[e].callback ? this.rules[e].callback(a, s, t, this.interpolation) : this.rules[e].validate(a, t, this.interpolation) : new c(e, !0, new d("Validation rule doesn't exist"));
+  validateSingle(r, e, t, s) {
+    if (!this.rules[e])
+      throw new Error("Validation rule does not exist");
+    return this.rules[e].callback ? this.rules[e].callback(r, t, s, this.interpolation) : this.rules[e].validate(r, s, this.interpolation);
   }
   /**
    * Test a value against a set of validation rules.
    *
    * @param value The value to test
    * @param rules An array of validation rule names
-   * @param label Set a custom label for error messages
-   * @returns Return TRUE if no validation errors are detected and FALSE otherwise
+   * @param label Set a custom label for messages
+   * @returns Return true if no validation errors are detected and false otherwise
    */
-  validate(a, e, s) {
+  validate(r, e, t) {
     this.reply.clear();
-    for (const t of e) {
-      const r = t.split(":");
+    for (const s of e) {
+      const a = s.split(":");
       let i = [];
-      typeof r[1] < "u" && (i = r[1].split(",")), this.reply.push(this.validateSingle(a, r[0], i, s));
+      typeof a[1] < "u" && (i = a[1].split(","));
+      const u = this.validateSingle(r, a[0], i, t);
+      this.translator && u.message && (u.message.trans = this.translator(
+        u.message.key,
+        u.message.replacements
+      )), this.reply.push(u);
     }
     return !this.reply.hasErrors;
   }
 }
 export {
-  d as Message,
+  m as Message,
   c as RuleReply,
   A as Validation,
   g as ValidationReply,

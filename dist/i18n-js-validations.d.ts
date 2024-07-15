@@ -5,10 +5,11 @@ export declare interface interpolatedString {
 
 export declare class Message {
     key: string;
-    parameters?: {
+    replacements?: {
         [key: string]: string;
     };
-    constructor(key: string, parameters?: {
+    trans?: string;
+    constructor(key: string, replacements?: {
         [key: string]: string;
     });
 }
@@ -25,6 +26,10 @@ export declare interface StringsGroup {
     withoutLabel?: interpolatedString;
 }
 
+export declare type Translator = (key: string, replacements?: {
+    [key: string]: string;
+}) => string;
+
 export declare class Validation {
     /**
      * Validation rules available to this Validation object.
@@ -40,6 +45,10 @@ export declare class Validation {
      * '{}' for 'The field {label} is required'
      */
     interpolation: string;
+    /**
+     * Callback used to generate translated messages.
+     */
+    translator?: Translator;
     /**
      * Make a new validation object.
      *
@@ -81,7 +90,7 @@ export declare class Validation {
      * @param rule The validation rule to apply
      * @param parameters Parameters used by some rules (like min and max)
      * @param label Set a custom label for error messages
-     * @returns Return a RuleReply with a message key in case of error
+     * @returns A new RuleReply
      */
     validateSingle(value: Value, rule: string, parameters: string[], label?: string): RuleReply;
     /**
@@ -89,15 +98,19 @@ export declare class Validation {
      *
      * @param value The value to test
      * @param rules An array of validation rule names
-     * @param label Set a custom label for error messages
-     * @returns Return TRUE if no validation errors are detected and FALSE otherwise
+     * @param label Set a custom label for messages
+     * @returns Return true if no validation errors are detected and false otherwise
      */
     validate(value: Value, rules: string[], label?: string): boolean;
 }
 
 export declare interface ValidationOptions {
+    /** An array of custom rule objects. */
     customRules?: ValidationRule[];
+    /** Interpolation key syntax for reply messages (default: ":"). */
     interpolation?: string;
+    /** Callback used to generate translated messages. */
+    translator?: Translator;
 }
 
 export declare class ValidationReply {
@@ -144,16 +157,16 @@ export declare abstract class ValidationRule {
      * @param type "fail" or "success"
      * @param label Optional label for the reply message
      * @param interpolation Interpolation type
-     * @param parameters Message parameters for interpolation
+     * @param replacements Message parameters for interpolation
      * @returns A new RuleReply
      */
-    reply(type?: 'fail' | 'success', label?: string, interpolation?: string, parameters?: {
+    reply(type?: 'fail' | 'success', label?: string, interpolation?: string, replacements?: {
         [key: string]: string;
     }): RuleReply;
-    replySuccess(label?: string, interpolation?: string, parameters?: {
+    replySuccess(label?: string, interpolation?: string, replacements?: {
         [key: string]: string;
     }): RuleReply;
-    replyFail(label?: string, interpolation?: string, parameters?: {
+    replyFail(label?: string, interpolation?: string, replacements?: {
         [key: string]: string;
     }): RuleReply;
     /**

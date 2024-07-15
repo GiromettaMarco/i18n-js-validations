@@ -1,5 +1,5 @@
-import { Message } from './message'
-import { RuleReply } from './ruleReply'
+import type { Message } from './message'
+import type { RuleReply } from './ruleReply'
 
 export class ValidationReply {
   replies: RuleReply[] = []
