@@ -86,7 +86,7 @@ export class Validation {
     }
 
     if (options?.translator) {
-      this.translator = this.translator
+      this.translator = options.translator
     }
   }
 

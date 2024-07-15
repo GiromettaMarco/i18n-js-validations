@@ -517,7 +517,7 @@ class A {
     if (r != null && r.customRules)
       for (const e of r.customRules)
         this.addRule(e);
-    r != null && r.interpolation && (this.interpolation = r.interpolation), r != null && r.translator && (this.translator = this.translator);
+    r != null && r.interpolation && (this.interpolation = r.interpolation), r != null && r.translator && (this.translator = r.translator);
   }
   /**
    * Add support for a custom validation rule.
