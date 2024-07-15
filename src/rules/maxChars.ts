@@ -35,15 +35,16 @@ export class MaxChars extends ValidationRule {
       throw new Error('A maximum value must be provided')
     }
 
-    if (value === undefined || value === null) {
-      return this.replySuccess(label, interpolation)
-    }
-
     if (typeof value === 'boolean') {
       return this.replyFail(label, interpolation)
     }
 
-    const parsedValue = typeof value === 'number' ? value.toString() : value
+    let parsedValue = ''
+    if (typeof value === 'number') {
+      parsedValue = value.toString()
+    } else if (typeof value === 'string') {
+      parsedValue = value
+    }
 
     return this.validate(parsedValue, { max: parseInt(parameters[0]) }, label, interpolation)
   }

@@ -34,3 +34,7 @@ test('max_chars:3 on undefined', () => {
 test('max_chars:3 on null', () => {
   expect($v.validate(null, ['max_chars:3'])).toBe(true)
 })
+
+test('max_chars:-1 on null', () => {
+  expect($v.validate(null, ['max_chars:-1'])).toBe(false)
+})
