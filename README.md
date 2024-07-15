@@ -90,7 +90,7 @@ if ($v.validate(value, ['required', 'min_chars:4'])) {
 }
 ```
 
-Once ```validate()``` has been called, the ```Validation``` object will contain the state of the last validation (see below).
+Once ```validate()``` is called, the ```Validation``` object will contain the state of the last validation (see below).
 
 ## Validation Errors
 
@@ -154,7 +154,7 @@ If the translation string does not require any replacement, the ```replacements`
 
 ### trans
 
-If a translator callback has been defined, this property will contain a translated string (see [Automated Translations](#automated-translations)).
+If a translator callback is defined, this property will contain a translated string (see [Automated Translations](#automated-translations)).
 
 ## Rule Reply
 
@@ -364,7 +364,7 @@ Strings can be accessed using the ```ValidationRule```'s helper method ```getStr
 
 ## Automated Translations
 
-If a translator callback has been defined (see [Validation Options](#validation-options)), the ```Validation``` object will use it to generate and add a translated string to every ```Message```.
+If a translator callback is defined (see [Validation Options](#validation-options)), the ```Validation``` object will use it to generate and add a translated string to every ```Message```.
 
 The translator callback recives a translation key as first argument and a key paired object with replacements as second argument (or undefined if no replacements are present).
 
@@ -388,4 +388,4 @@ $v.translator = (key, replacements?) => {
 
 ## License
 
-Brainlight Loader is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+I18n JS Validations is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
