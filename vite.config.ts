@@ -1,3 +1,4 @@
+import { copyFileSync } from 'node:fs'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
@@ -17,5 +18,12 @@ export default defineConfig({
     },
     outDir: 'dist',
   },
-  plugins: [dts({ rollupTypes: true })],
+  plugins: [
+    dts({
+      afterBuild: () => {
+        copyFileSync('dist/i18n-js-validations.d.ts', 'dist/i18n-js-validations.d.cts')
+      },
+      rollupTypes: true,
+    }),
+  ],
 })

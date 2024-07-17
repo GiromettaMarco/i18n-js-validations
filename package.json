@@ -1,6 +1,6 @@
 {
   "name": "i18n-js-validations",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Low-level JavaScript value validator predisposed for i18n and extension",
   "keywords": [
     "validation",
@@ -16,17 +16,25 @@
     "url": "git+https://github.com/GiromettaMarco/i18n-js-validations.git"
   },
   "author": "Girometta Marco",
-  "main": "dist/i18n-js-validations.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/i18n-js-validations.d.ts",
+        "default": "./dist/i18n-js-validations.js"
+      },
+      "require": {
+        "types": "./dist/i18n-js-validations.d.cts",
+        "default": "./dist/i18n-js-validations.cjs"
+      }
+    }
+  },
+  "main": "dist/i18n-js-validations.cjs",
+  "types": "./dist/i18n-js-validations.d.ts",
+  "module": "./dist/i18n-js-validations.js",
   "files": [
     "dist"
   ],
-  "type": "module",
-  "exports": {
-    "types": "./dist/i18n-js-validations.d.ts",
-    "default": "./dist/i18n-js-validations.js"
-  },
-  "module": "./dist/i18n-js-validations.js",
-  "types": "./dist/i18n-js-validations.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
