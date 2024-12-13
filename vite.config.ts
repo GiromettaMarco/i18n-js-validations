@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { copyFileSync } from 'node:fs'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
@@ -26,4 +27,11 @@ export default defineConfig({
       rollupTypes: true,
     }),
   ],
+  test: {
+    coverage: {
+      provider: 'v8',
+      enabled: true,
+      include: ['src/**'],
+    },
+  },
 })

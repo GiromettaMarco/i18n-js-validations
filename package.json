@@ -39,7 +39,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest --ui --typecheck",
+    "test": "vitest --ui --typecheck --coverage",
     "prettier": "prettier . --write",
     "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
     "prepare": "husky"
@@ -47,6 +47,7 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.14.10",
+    "@vitest/coverage-v8": "^2.1.8",
     "@vitest/ui": "^2.1.8",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
