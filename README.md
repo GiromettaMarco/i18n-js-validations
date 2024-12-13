@@ -1,4 +1,5 @@
 # I18n JS Validations
+[![npm](https://img.shields.io/npm/v/i18n-js-validations)](https://www.npmjs.com/package/i18n-js-validations) [![Coverage Status](https://coveralls.io/repos/github/GiromettaMarco/i18n-js-validations/badge.svg?branch=main)](https://coveralls.io/github/GiromettaMarco/i18n-js-validations?branch=main)
 
 This package aims to provide low-level validations for javaScript primitive values with predisposition for internationalization and extension.
 
