@@ -2,7 +2,7 @@
 import { copyFileSync } from 'node:fs'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
+import dts from 'unplugin-dts/vite'
 
 export default defineConfig({
   resolve: {
@@ -21,10 +21,11 @@ export default defineConfig({
   },
   plugins: [
     dts({
+      bundleTypes: true,
+      copyDtsFiles: true,
       afterBuild: () => {
         copyFileSync('dist/i18n-js-validations.d.ts', 'dist/i18n-js-validations.d.cts')
       },
-      rollupTypes: true,
     }),
   ],
   test: {
