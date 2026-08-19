@@ -6,9 +6,7 @@ import dts from 'unplugin-dts/vite'
 
 export default defineConfig({
   resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    },
+    tsconfigPaths: true,
   },
   build: {
     minify: true,
