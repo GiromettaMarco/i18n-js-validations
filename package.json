@@ -40,7 +40,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest --ui --typecheck --coverage",
-    "preinstall": "npx only-allow pnpm",
     "prettier": "prettier . --write",
     "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
     "prepare": "husky",
